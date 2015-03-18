@@ -28,7 +28,7 @@
 	<properties>
 		<elasticsearch.version>1.4.4</elasticsearch.version>
 		<lucene.version>4.10.3</lucene.version>
-		<kuromoji-neologd.version>4.10.3-20150317</kuromoji-neologd.version>
+		<kuromoji-neologd.version>4.10.3-20150319</kuromoji-neologd.version>
 	</properties>
 	<repositories>
 		<repository>
