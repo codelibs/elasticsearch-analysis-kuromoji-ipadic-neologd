@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.lucene.analysis.TokenStream;
-import org.codelibs.lucene.analysis.ja.JapanesePartOfSpeechStopFilter;
+import org.codelibs.neologd.lucene.analysis.ja.JapanesePartOfSpeechStopFilter;
 import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.common.inject.assistedinject.Assisted;
 import org.elasticsearch.common.settings.Settings;
