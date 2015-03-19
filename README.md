@@ -38,5 +38,11 @@ The plugin includes these analyzer and tokenizer, tokenfilter.
 | kuromoji\_neologd\_readingform    | tokenfilter |
 | kuromoji\_neologd\_stemmer        | tokenfilter |
 
-For usage and more details, see [Elasticsearch Kuromoji](https://github.com/elastic/elasticsearch-analysis-kuromoji "elasticsearch-analysis-kuromoji").
+### Usage
+
+See [Elasticsearch Kuromoji](https://github.com/elastic/elasticsearch-analysis-kuromoji "elasticsearch-analysis-kuromoji").
+
+### What is NEologd
+
+See [mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd "mecab-ipadic-NEologd").
 
