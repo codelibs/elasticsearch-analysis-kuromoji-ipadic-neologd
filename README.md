@@ -24,7 +24,6 @@ Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromo
 ## References
 
 ### Analyzer, Tokenizer, TokenFilter, CharFilter
-----------------------------------------
 
 The plugin includes these analyzer and tokenizer, tokenfilter.
 
