@@ -45,3 +45,7 @@ See [Elasticsearch Kuromoji](https://github.com/elastic/elasticsearch-analysis-k
 
 See [mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd "mecab-ipadic-NEologd").
 
+### References to build Lucene Kuromoji with NEologd
+
+* http://d.hatena.ne.jp/Kazuhira/20150316/1426520209
+* http://mocobeta-backup.tumblr.com/post/114318023832
