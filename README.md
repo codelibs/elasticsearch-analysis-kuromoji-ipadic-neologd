@@ -10,6 +10,7 @@ Elasticsearch Analysis Neologd Plugin provides Tokenizer/CharFilter/TokenFilter 
 | Version   | elasticsearch | neologd  |
 |:---------:|:-------------:|:--------:|
 | master    | 1.5.X         |          |
+| 1.5.1     | 1.5.2         | 20150501 |
 | 1.5.0     | 1.5.0         | 20150324 |
 | 1.4.0     | 1.4.4         | 20150319 |
 
@@ -20,7 +21,7 @@ Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromo
 
 ## Installation
 
-    $ $ES_HOME/bin/plugin --install org.codelibs/elasticsearch-analysis-kuromoji-neologd/1.5.0
+    $ $ES_HOME/bin/plugin --install org.codelibs/elasticsearch-analysis-kuromoji-neologd/1.5.1
 
 ## References
 
@@ -28,15 +29,16 @@ Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromo
 
 The plugin includes these analyzer and tokenizer, tokenfilter.
 
-| name                    | type        |
-|-------------------------|-------------|
-| kuromoji\_neologd\_iteration\_mark | charfilter  |
-| kuromoji\_neologd                | analyzer    |
-| kuromoji\_neologd\_tokenizer      | tokenizer   |
-| kuromoji\_neologd\_baseform       | tokenfilter |
-| kuromoji\_neologd\_part\_of\_speech | tokenfilter |
-| kuromoji\_neologd\_readingform    | tokenfilter |
-| kuromoji\_neologd\_stemmer        | tokenfilter |
+| name                                     | type        |
+|:-----------------------------------------|:-----------:|
+| kuromoji\_neologd\_iteration\_mark       | charfilter  |
+| kuromoji\_neologd                        | analyzer    |
+| kuromoji\_neologd\_tokenizer             | tokenizer   |
+| kuromoji\_neologd\_baseform              | tokenfilter |
+| kuromoji\_neologd\_part\_of\_speech      | tokenfilter |
+| kuromoji\_neologd\_readingform           | tokenfilter |
+| kuromoji\_neologd\_stemmer               | tokenfilter |
+| reloadable\_kuromoji\_neologd\_tokenizer | tokenizer   |
 
 ### Usage
 
