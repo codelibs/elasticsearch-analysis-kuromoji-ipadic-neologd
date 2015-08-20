@@ -7,14 +7,14 @@ Elasticsearch Analysis Neologd Plugin provides Tokenizer/CharFilter/TokenFilter 
 
 ## Version
 
-| Version   | elasticsearch | neologd  |
-|:---------:|:-------------:|:--------:|
-| master    | 1.7.X         |          |
-| 1.7.0     | 1.7.1         | 20150723 |
-| 1.6.0     | 1.6.0         | 20150608 |
-| 1.5.1     | 1.5.2         | 20150501 |
-| 1.5.0     | 1.5.0         | 20150324 |
-| 1.4.0     | 1.4.4         | 20150319 |
+| Version   | Tested on Elasticsearch | neologd  |
+|:---------:|:-----------------------:|:--------:|
+| master    | 1.7.X                   |          |
+| 1.7.0     | 1.7.1                   | 20150723 |
+| 1.6.0     | 1.6.0                   | 20150608 |
+| 1.5.1     | 1.5.2                   | 20150501 |
+| 1.5.0     | 1.5.0                   | 20150324 |
+| 1.4.0     | 1.4.4                   | 20150319 |
 
 ### Issues/Questions
 
