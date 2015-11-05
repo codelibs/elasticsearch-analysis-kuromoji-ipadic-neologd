@@ -1,7 +1,8 @@
 package org.codelibs.elasticsearch.kuromoji.neologd;
 
-import static org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner.*;
-import static org.junit.Assert.*;
+import static org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner.newConfigs;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,15 +13,14 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner;
 import org.codelibs.elasticsearch.runner.net.Curl;
 import org.codelibs.elasticsearch.runner.net.CurlResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.common.settings.ImmutableSettings;
-import org.elasticsearch.common.settings.ImmutableSettings.Builder;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.settings.Settings.Builder;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.MatchQueryBuilder.Type;
@@ -40,8 +40,11 @@ public class KuromojiNeologdPluginTest {
 
     private int numOfDocs = 1000;
 
+    private String clusterName;
+
     @Before
     public void setUp() throws Exception {
+        clusterName = "es-kuromojineologd-" + System.currentTimeMillis();
         runner = new ElasticsearchClusterRunner();
         runner.onBuild(new ElasticsearchClusterRunner.Builder() {
             @Override
@@ -49,8 +52,11 @@ public class KuromojiNeologdPluginTest {
                 settingsBuilder.put("http.cors.enabled", true);
                 settingsBuilder.put("index.number_of_replicas", 0);
                 settingsBuilder.put("index.number_of_shards", 1);
+                settingsBuilder.put("index.number_of_replicas", 0);
+                settingsBuilder.putArray("discovery.zen.ping.unicast.hosts", "localhost:9301-9399");
+                settingsBuilder.put("plugin.types", "org.codelibs.elasticsearch.kuromoji.neologd.KuromojiNeologdPlugin");
             }
-        }).build(newConfigs().ramIndexStore().numOfNode(numOfNode).clusterName(UUID.randomUUID().toString()));
+        }).build(newConfigs().clusterName(clusterName).numOfNode(numOfNode));
 
         userDictFiles = null;
     }
@@ -88,16 +94,14 @@ public class KuromojiNeologdPluginTest {
         final String index = "dataset";
         final String type = "item";
 
-        final String indexSettings =
-                "{\"index\":{\"analysis\":{"
-                        + "\"tokenizer\":{"//
-                        + "\"kuromoji_user_dict\":{\"type\":\"kuromoji_neologd_tokenizer\",\"mode\":\"extended\",\"user_dictionary\":\"userdict_ja.txt\"}"
-                        + "},"//
-                        + "\"analyzer\":{"
-                        + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_user_dict\",\"filter\":[\"kuromoji_neologd_stemmer\"]}"
-                        + "}"//
-                        + "}}}";
-        runner.createIndex(index, ImmutableSettings.builder().loadFromSource(indexSettings).build());
+        final String indexSettings = "{\"index\":{\"analysis\":{" + "\"tokenizer\":{"//
+                + "\"kuromoji_user_dict\":{\"type\":\"kuromoji_neologd_tokenizer\",\"mode\":\"extended\",\"user_dictionary\":\"userdict_ja.txt\"}"
+                + "},"//
+                + "\"analyzer\":{"
+                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_user_dict\",\"filter\":[\"kuromoji_neologd_stemmer\"]}"
+                + "}"//
+                + "}}}";
+        runner.createIndex(index, Settings.builder().loadFromSource(indexSettings).build());
 
         // create a mapping
         final XContentBuilder mappingBuilder = XContentFactory.jsonBuilder()//
@@ -128,7 +132,8 @@ public class KuromojiNeologdPluginTest {
 
         assertDocCount(1, index, type, "msg", "東京スカイツリー");
 
-        try (CurlResponse response = Curl.post(node, "/" + index + "/_analyze").param("analyzer", "ja_analyzer").body("東京スカイツリー").execute()) {
+        try (CurlResponse response =
+                Curl.post(node, "/" + index + "/_analyze").param("analyzer", "ja_analyzer").body("東京スカイツリー").execute()) {
             @SuppressWarnings("unchecked")
             List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
             assertEquals("東京", tokens.get(0).get("token").toString());
@@ -150,8 +155,7 @@ public class KuromojiNeologdPluginTest {
         for (int i = 0; i < numOfNode; i++) {
             String confPath = runner.getNode(i).settings().get("path.conf");
             userDictFiles[i] = new File(confPath, "userdict_ja.txt");
-            updateDictionary(userDictFiles[i],
-                    "東京スカイツリー,東京 スカイツリー,トウキョウ スカイツリー,カスタム名詞");
+            updateDictionary(userDictFiles[i], "東京スカイツリー,東京 スカイツリー,トウキョウ スカイツリー,カスタム名詞");
         }
 
         runner.ensureYellow();
@@ -160,19 +164,16 @@ public class KuromojiNeologdPluginTest {
         final String index = "dataset";
         final String type = "item";
 
-        final String indexSettings = "{\"index\":{\"analysis\":{"
-                + "\"tokenizer\":{"//
+        final String indexSettings = "{\"index\":{\"analysis\":{" + "\"tokenizer\":{"//
                 + "\"kuromoji_user_dict\":{\"type\":\"kuromoji_neologd_tokenizer\",\"mode\":\"extended\",\"user_dictionary\":\"userdict_ja.txt\"},"
                 + "\"kuromoji_user_dict_reload\":{\"type\":\"reloadable_kuromoji_neologd\",\"mode\":\"extended\",\"user_dictionary\":\"userdict_ja.txt\",\"reload_interval\":\"1s\"}"
                 + "},"//
                 + "\"analyzer\":{"
-                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_user_dict\",\"filter\":[\"kuromoji_stemmer\"]},"
-                + "\"ja_reload_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_user_dict_reload\",\"filter\":[\"kuromoji_stemmer\"]}"
+                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_user_dict\",\"filter\":[\"kuromoji_neologd_stemmer\"]},"
+                + "\"ja_reload_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_user_dict_reload\",\"filter\":[\"kuromoji_neologd_stemmer\"]}"
                 + "}"//
                 + "}}}";
-        runner.createIndex(index,
-                ImmutableSettings.builder().loadFromSource(indexSettings)
-                        .build());
+        runner.createIndex(index, Settings.builder().loadFromSource(indexSettings).build());
 
         // create a mapping
         final XContentBuilder mappingBuilder = XContentFactory.jsonBuilder()//
@@ -203,8 +204,8 @@ public class KuromojiNeologdPluginTest {
                 .endObject();
         runner.createMapping(index, type, mappingBuilder);
 
-        final IndexResponse indexResponse1 = runner.insert(index, type, "1",
-                "{\"msg1\":\"東京スカイツリー\", \"msg2\":\"東京スカイツリー\", \"id\":\"1\"}");
+        final IndexResponse indexResponse1 =
+                runner.insert(index, type, "1", "{\"msg1\":\"東京スカイツリー\", \"msg2\":\"東京スカイツリー\", \"id\":\"1\"}");
         assertTrue(indexResponse1.isCreated());
         runner.refresh();
 
@@ -212,24 +213,18 @@ public class KuromojiNeologdPluginTest {
             assertDocCount(1, index, type, "msg1", "東京スカイツリー");
             assertDocCount(1, index, type, "msg2", "東京スカイツリー");
 
-            try (CurlResponse response = Curl
-                    .post(node, "/" + index + "/_analyze")
-                    .param("analyzer", "ja_reload_analyzer").body("東京スカイツリー")
-                    .execute()) {
+            try (CurlResponse response =
+                    Curl.post(node, "/" + index + "/_analyze").param("analyzer", "ja_reload_analyzer").body("東京スカイツリー").execute()) {
                 @SuppressWarnings("unchecked")
-                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response
-                        .getContentAsMap().get("tokens");
+                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
                 assertEquals("東京", tokens.get(0).get("token").toString());
                 assertEquals("スカイツリ", tokens.get(1).get("token").toString());
             }
 
-            try (CurlResponse response = Curl
-                    .post(node, "/" + index + "/_analyze")
-                    .param("analyzer", "ja_reload_analyzer").body("Java太郎")
-                    .execute()) {
+            try (CurlResponse response =
+                    Curl.post(node, "/" + index + "/_analyze").param("analyzer", "ja_reload_analyzer").body("Java太郎").execute()) {
                 @SuppressWarnings("unchecked")
-                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response
-                        .getContentAsMap().get("tokens");
+                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
                 assertEquals("Java", tokens.get(0).get("token").toString());
                 assertEquals("太郎", tokens.get(1).get("token").toString());
             }
@@ -239,13 +234,11 @@ public class KuromojiNeologdPluginTest {
         Thread.sleep(2000);
 
         for (int i = 0; i < numOfNode; i++) {
-            updateDictionary(userDictFiles[i],
-                    "東京スカイツリー,東京 スカイ ツリー,トウキョウ スカイ ツリー,カスタム名詞\n"
-                            + "Java太郎,Java太郎,ジャバタロウ,人名");
+            updateDictionary(userDictFiles[i], "東京スカイツリー,東京 スカイ ツリー,トウキョウ スカイ ツリー,カスタム名詞\n" + "Java太郎,Java太郎,ジャバタロウ,人名");
         }
 
-        final IndexResponse indexResponse2 = runner.insert(index, type, "2",
-                "{\"msg1\":\"東京スカイツリー\", \"msg2\":\"東京スカイツリー\", \"id\":\"2\"}");
+        final IndexResponse indexResponse2 =
+                runner.insert(index, type, "2", "{\"msg1\":\"東京スカイツリー\", \"msg2\":\"東京スカイツリー\", \"id\":\"2\"}");
         assertTrue(indexResponse2.isCreated());
         runner.refresh();
 
@@ -253,25 +246,19 @@ public class KuromojiNeologdPluginTest {
             assertDocCount(1, index, type, "msg1", "東京スカイツリー");
             assertDocCount(2, index, type, "msg2", "東京スカイツリー");
 
-            try (CurlResponse response = Curl
-                    .post(node, "/" + index + "/_analyze")
-                    .param("analyzer", "ja_reload_analyzer").body("東京スカイツリー")
-                    .execute()) {
+            try (CurlResponse response =
+                    Curl.post(node, "/" + index + "/_analyze").param("analyzer", "ja_reload_analyzer").body("東京スカイツリー").execute()) {
                 @SuppressWarnings("unchecked")
-                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response
-                        .getContentAsMap().get("tokens");
+                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
                 assertEquals("東京", tokens.get(0).get("token").toString());
                 assertEquals("スカイ", tokens.get(1).get("token").toString());
                 assertEquals("ツリー", tokens.get(2).get("token").toString());
             }
 
-            try (CurlResponse response = Curl
-                    .post(node, "/" + index + "/_analyze")
-                    .param("analyzer", "ja_reload_analyzer").body("Java太郎")
-                    .execute()) {
+            try (CurlResponse response =
+                    Curl.post(node, "/" + index + "/_analyze").param("analyzer", "ja_reload_analyzer").body("Java太郎").execute()) {
                 @SuppressWarnings("unchecked")
-                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response
-                        .getContentAsMap().get("tokens");
+                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
                 assertEquals("Java太郎", tokens.get(0).get("token").toString());
             }
         }

@@ -37,6 +37,9 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.analysis.AnalyzerScope;
 import org.elasticsearch.index.analysis.CharFilterFactory;
 import org.elasticsearch.index.analysis.PreBuiltAnalyzerProviderFactory;
+import org.elasticsearch.index.analysis.PreBuiltCharFilterFactoryFactory;
+import org.elasticsearch.index.analysis.PreBuiltTokenFilterFactoryFactory;
+import org.elasticsearch.index.analysis.PreBuiltTokenizerFactoryFactory;
 import org.elasticsearch.index.analysis.TokenFilterFactory;
 import org.elasticsearch.index.analysis.TokenizerFactory;
 import org.elasticsearch.indices.analysis.IndicesAnalysisService;
@@ -52,15 +55,15 @@ public class KuromojiIndicesAnalysis extends AbstractComponent {
                                    IndicesAnalysisService indicesAnalysisService) {
         super(settings);
 
-        indicesAnalysisService.analyzerProviderFactories().put("kuromoji",
-                new PreBuiltAnalyzerProviderFactory("kuromoji", AnalyzerScope.INDICES,
+        indicesAnalysisService.analyzerProviderFactories().put("kuromoji_neologd",
+                new PreBuiltAnalyzerProviderFactory("kuromoji_neologd", AnalyzerScope.INDICES,
                         new JapaneseAnalyzer()));
 
-        indicesAnalysisService.charFilterFactories().put("kuromoji_iteration_mark",
-                new KurumojiCharFilterFactoryFactory(new CharFilterFactory() {
+        indicesAnalysisService.charFilterFactories().put("kuromoji_neologd_iteration_mark",
+                new PreBuiltCharFilterFactoryFactory(new CharFilterFactory() {
                     @Override
                     public String name() {
-                        return "kuromoji_iteration_mark";
+                        return "kuromoji_neologd_iteration_mark";
                     }
 
                     @Override
@@ -71,25 +74,24 @@ public class KuromojiIndicesAnalysis extends AbstractComponent {
                     }
                 }));
 
-        indicesAnalysisService.tokenizerFactories().put("kuromoji_tokenizer",
-                new KurumojiTokenizerFactoryFactory(new TokenizerFactory() {
+        indicesAnalysisService.tokenizerFactories().put("kuromoji_neologd_tokenizer",
+                new PreBuiltTokenizerFactoryFactory(new TokenizerFactory() {
                     @Override
                     public String name() {
-                        return "kuromoji_tokenizer";
+                        return "kuromoji_neologd_tokenizer";
                     }
 
                     @Override
-                    public Tokenizer create(Reader reader) {
-                        return new JapaneseTokenizer(reader, null, true,
-                                Mode.SEARCH);
+                    public Tokenizer create() {
+                        return new JapaneseTokenizer(null, true, Mode.SEARCH);
                     }
                 }));
 
-        indicesAnalysisService.tokenFilterFactories().put("kuromoji_baseform",
-                new KurumojiTokenFilterFactoryFactory(new TokenFilterFactory() {
+        indicesAnalysisService.tokenFilterFactories().put("kuromoji_neologd_baseform",
+                new PreBuiltTokenFilterFactoryFactory(new TokenFilterFactory() {
                     @Override
                     public String name() {
-                        return "kuromoji_baseform";
+                        return "kuromoji_neologd_baseform";
                     }
 
                     @Override
@@ -99,11 +101,11 @@ public class KuromojiIndicesAnalysis extends AbstractComponent {
                 }));
 
         indicesAnalysisService.tokenFilterFactories().put(
-                "kuromoji_part_of_speech",
-                new KurumojiTokenFilterFactoryFactory(new TokenFilterFactory() {
+                "kuromoji_neologd_part_of_speech",
+                new PreBuiltTokenFilterFactoryFactory(new TokenFilterFactory() {
                     @Override
                     public String name() {
-                        return "kuromoji_part_of_speech";
+                        return "kuromoji_neologd_part_of_speech";
                     }
 
                     @Override
@@ -114,11 +116,11 @@ public class KuromojiIndicesAnalysis extends AbstractComponent {
                 }));
 
         indicesAnalysisService.tokenFilterFactories().put(
-                "kuromoji_readingform",
-                new KurumojiTokenFilterFactoryFactory(new TokenFilterFactory() {
+                "kuromoji_neologd_readingform",
+                new PreBuiltTokenFilterFactoryFactory(new TokenFilterFactory() {
                     @Override
                     public String name() {
-                        return "kuromoji_readingform";
+                        return "kuromoji_neologd_readingform";
                     }
 
                     @Override
@@ -127,11 +129,11 @@ public class KuromojiIndicesAnalysis extends AbstractComponent {
                     }
                 }));
 
-        indicesAnalysisService.tokenFilterFactories().put("kuromoji_stemmer",
-                new KurumojiTokenFilterFactoryFactory(new TokenFilterFactory() {
+        indicesAnalysisService.tokenFilterFactories().put("kuromoji_neologd_stemmer",
+                new PreBuiltTokenFilterFactoryFactory(new TokenFilterFactory() {
                     @Override
                     public String name() {
-                        return "kuromoji_stemmer";
+                        return "kuromoji_neologd_stemmer";
                     }
 
                     @Override

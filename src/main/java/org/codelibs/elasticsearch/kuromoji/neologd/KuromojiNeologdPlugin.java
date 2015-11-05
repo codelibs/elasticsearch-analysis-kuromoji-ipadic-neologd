@@ -11,12 +11,14 @@ import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiReadin
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiTokenizerFactory;
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.ReloadableKuromojiTokenizerFactory;
 import org.codelibs.elasticsearch.kuromoji.neologd.indices.analysis.KuromojiIndicesAnalysisModule;
-import org.elasticsearch.common.collect.ImmutableList;
 import org.elasticsearch.common.inject.Module;
+import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.analysis.AnalysisModule;
-import org.elasticsearch.plugins.AbstractPlugin;
+import org.elasticsearch.plugins.Plugin;
 
-public class KuromojiNeologdPlugin extends AbstractPlugin {
+import com.google.common.collect.ImmutableList;
+
+public class KuromojiNeologdPlugin extends Plugin {
     @Override
     public String name() {
         return "analysis-kuromoji-neologd";
@@ -24,12 +26,12 @@ public class KuromojiNeologdPlugin extends AbstractPlugin {
 
     @Override
     public String description() {
-        return "This plugin provides analysis library for Kuromoji with Neologd.";
+        return "Kuromoji with Neologd analysis support";
     }
 
     @Override
-    public Collection<Class<? extends Module>> modules() {
-        return ImmutableList.<Class<? extends Module>> of(KuromojiIndicesAnalysisModule.class);
+    public Collection<Module> indexModules(Settings indexSettings) {
+        return ImmutableList.<Module> of(new KuromojiIndicesAnalysisModule());
     }
 
     public void onModule(AnalysisModule module) {
