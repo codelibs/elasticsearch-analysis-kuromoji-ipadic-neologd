@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.codelibs</groupId>
 	<artifactId>elasticsearch-analysis-kuromoji-neologd</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>This plugin provides an analysis library for Kuromoji with Neologd.</description>
 	<inceptionYear>2011</inceptionYear>
