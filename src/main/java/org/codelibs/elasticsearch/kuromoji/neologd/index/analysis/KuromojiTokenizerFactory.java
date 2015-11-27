@@ -34,7 +34,7 @@ import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.Index;
 import org.elasticsearch.index.analysis.AbstractTokenizerFactory;
 import org.elasticsearch.index.analysis.Analysis;
-import org.elasticsearch.index.settings.IndexSettings;
+import org.elasticsearch.index.settings.IndexSettingsService;
 
 /**
  */
@@ -48,8 +48,8 @@ public class KuromojiTokenizerFactory extends AbstractTokenizerFactory {
     private boolean discartPunctuation;
 
     @Inject
-    public KuromojiTokenizerFactory(Index index, @IndexSettings Settings indexSettings, Environment env, @Assisted String name, @Assisted Settings settings) {
-        super(index, indexSettings, name, settings);
+    public KuromojiTokenizerFactory(Index index, IndexSettingsService indexSettingsService, Environment env, @Assisted String name, @Assisted Settings settings) {
+        super(index, indexSettingsService.getSettings(), name, settings);
         mode = getMode(settings);
         userDictionary = getUserDictionary(env, settings);
         discartPunctuation = settings.getAsBoolean("discard_punctuation", true);

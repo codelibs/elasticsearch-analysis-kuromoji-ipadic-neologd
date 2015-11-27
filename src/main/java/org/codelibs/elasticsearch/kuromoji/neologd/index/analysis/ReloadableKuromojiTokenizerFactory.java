@@ -38,7 +38,7 @@ import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.Index;
 import org.elasticsearch.index.analysis.AbstractTokenizerFactory;
-import org.elasticsearch.index.settings.IndexSettings;
+import org.elasticsearch.index.settings.IndexSettingsService;
 
 public class ReloadableKuromojiTokenizerFactory extends
         AbstractTokenizerFactory {
@@ -89,9 +89,9 @@ public class ReloadableKuromojiTokenizerFactory extends
 
     @Inject
     public ReloadableKuromojiTokenizerFactory(final Index index,
-            @IndexSettings final Settings indexSettings, final Environment env,
+            final IndexSettingsService indexSettingsService, final Environment env,
             @Assisted final String name, @Assisted final Settings settings) {
-        super(index, indexSettings, name, settings);
+        super(index, indexSettingsService.getSettings(), name, settings);
         this.env = env;
         this.settings = settings;
         mode = KuromojiTokenizerFactory.getMode(settings);

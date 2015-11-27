@@ -32,7 +32,7 @@ import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.Index;
 import org.elasticsearch.index.analysis.AbstractIndexAnalyzerProvider;
 import org.elasticsearch.index.analysis.Analysis;
-import org.elasticsearch.index.settings.IndexSettings;
+import org.elasticsearch.index.settings.IndexSettingsService;
 
 /**
  */
@@ -41,8 +41,8 @@ public class KuromojiAnalyzerProvider extends AbstractIndexAnalyzerProvider<Japa
     private final JapaneseAnalyzer analyzer;
 
     @Inject
-    public KuromojiAnalyzerProvider(Index index, @IndexSettings Settings indexSettings, Environment env, @Assisted String name, @Assisted Settings settings) {
-        super(index, indexSettings, name, settings);
+    public KuromojiAnalyzerProvider(Index index, IndexSettingsService indexSettingsService, Environment env, @Assisted String name, @Assisted Settings settings) {
+        super(index, indexSettingsService.getSettings(), name, settings);
         final Set<?> stopWords = Analysis.parseStopWords(env, settings, JapaneseAnalyzer.getDefaultStopSet());
         final JapaneseTokenizer.Mode mode = KuromojiTokenizerFactory.getMode(settings);
         final UserDictionary userDictionary = KuromojiTokenizerFactory.getUserDictionary(env, settings);

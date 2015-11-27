@@ -27,7 +27,7 @@ import org.elasticsearch.common.inject.assistedinject.Assisted;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.Index;
 import org.elasticsearch.index.analysis.AbstractCharFilterFactory;
-import org.elasticsearch.index.settings.IndexSettings;
+import org.elasticsearch.index.settings.IndexSettingsService;
 
 public class KuromojiIterationMarkCharFilterFactory extends AbstractCharFilterFactory {
 
@@ -35,9 +35,9 @@ public class KuromojiIterationMarkCharFilterFactory extends AbstractCharFilterFa
     private final boolean normalizeKana;
 
     @Inject
-    public KuromojiIterationMarkCharFilterFactory(Index index, @IndexSettings Settings indexSettings,
+    public KuromojiIterationMarkCharFilterFactory(Index index, IndexSettingsService indexSettingsService,
                                                   @Assisted String name, @Assisted Settings settings) {
-        super(index, indexSettings, name);
+        super(index, indexSettingsService.getSettings(), name);
         normalizeKanji = settings.getAsBoolean("normalize_kanji", JapaneseIterationMarkCharFilter.NORMALIZE_KANJI_DEFAULT);
         normalizeKana = settings.getAsBoolean("normalize_kana", JapaneseIterationMarkCharFilter.NORMALIZE_KANA_DEFAULT);
     }

@@ -32,15 +32,15 @@ import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.Index;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
 import org.elasticsearch.index.analysis.Analysis;
-import org.elasticsearch.index.settings.IndexSettings;
+import org.elasticsearch.index.settings.IndexSettingsService;
 
 public class KuromojiPartOfSpeechFilterFactory extends AbstractTokenFilterFactory {
 
     private final Set<String> stopTags = new HashSet<String>();
 
     @Inject
-    public KuromojiPartOfSpeechFilterFactory(Index index, @IndexSettings Settings indexSettings, Environment env, @Assisted String name, @Assisted Settings settings) {
-        super(index, indexSettings, name, settings);
+    public KuromojiPartOfSpeechFilterFactory(Index index, IndexSettingsService indexSettingsService, Environment env, @Assisted String name, @Assisted Settings settings) {
+        super(index, indexSettingsService.getSettings(), name, settings);
         List<String> wordList = Analysis.getWordList(env, settings, "stoptags");
         if (wordList != null) {
             stopTags.addAll(wordList);
