@@ -9,6 +9,7 @@ import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiKataka
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiPartOfSpeechFilterFactory;
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiReadingFormFilterFactory;
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiTokenizerFactory;
+import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.PosConcatenationFilterFactory;
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.ReloadableKuromojiTokenizerFactory;
 import org.codelibs.elasticsearch.kuromoji.neologd.indices.analysis.KuromojiIndicesAnalysisModule;
 import org.elasticsearch.common.inject.Module;
@@ -45,5 +46,7 @@ public class KuromojiNeologdPlugin extends Plugin {
 
         module.addTokenizer("reloadable_kuromoji_neologd_tokenizer", ReloadableKuromojiTokenizerFactory.class);
         module.addTokenizer("reloadable_kuromoji_neologd", ReloadableKuromojiTokenizerFactory.class);
+
+        module.addTokenFilter("kuromoji_neologd_pos_concat", PosConcatenationFilterFactory.class);
     }
 }
