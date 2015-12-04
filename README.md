@@ -24,7 +24,7 @@ Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromo
 
 ## Installation
 
-    $ $ES_HOME/bin/plugin --install org.codelibs/elasticsearch-analysis-kuromoji-neologd/2.0.0
+    $ $ES_HOME/bin/plugin install org.codelibs/elasticsearch-analysis-kuromoji-neologd/2.0.0
 
 ## References
 
