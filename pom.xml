@@ -31,7 +31,7 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<lucene.version>5.3.1</lucene.version>
-		<kuromoji-ipadic-neologd.version>5.3.1-20151126</kuromoji-ipadic-neologd.version>
+		<kuromoji-ipadic-neologd.version>5.3.1-20151214</kuromoji-ipadic-neologd.version>
 	</properties>
 	<repositories>
 		<repository>
