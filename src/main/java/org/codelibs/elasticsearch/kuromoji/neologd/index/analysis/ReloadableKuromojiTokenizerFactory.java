@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.EnumMap;
 
 import org.apache.lucene.analysis.Tokenizer;
@@ -99,24 +101,11 @@ public class ReloadableKuromojiTokenizerFactory extends
                 settings);
         discartPunctuation = settings.getAsBoolean("discard_punctuation", true);
 
-        try {
-            inputPendingField = Tokenizer.class
-                    .getDeclaredField("inputPending");
-            inputPendingField.setAccessible(true);
-            userDictionaryField = JapaneseTokenizer.class
-                    .getDeclaredField("userDictionary");
-            userDictionaryField.setAccessible(true);
-            userFSTField = JapaneseTokenizer.class.getDeclaredField("userFST");
-            userFSTField.setAccessible(true);
-            userFSTReaderField = JapaneseTokenizer.class
-                    .getDeclaredField("userFSTReader");
-            userFSTReaderField.setAccessible(true);
-            dictionaryMapField = JapaneseTokenizer.class
-                    .getDeclaredField("dictionaryMap");
-            dictionaryMapField.setAccessible(true);
-        } catch (final Exception e) {
-            throw new IllegalArgumentException("Failed to load fields.", e);
-        }
+        inputPendingField = getAccessibleField(Tokenizer.class, "inputPending");
+        userDictionaryField = getAccessibleField(JapaneseTokenizer.class, "userDictionary");
+        userFSTField = getAccessibleField(JapaneseTokenizer.class, "userFST");
+        userFSTReaderField = getAccessibleField(JapaneseTokenizer.class, "userFSTReader");
+        dictionaryMapField = getAccessibleField(JapaneseTokenizer.class, "dictionaryMap");
 
         dictionaryTimestamp = System.currentTimeMillis();
 
@@ -182,22 +171,15 @@ public class ReloadableKuromojiTokenizerFactory extends
             tokenizer = new JapaneseTokenizer(userDictionary, discartPunctuation, mode);
 
             try {
-                Field attributesField = AttributeSource.class
-                        .getDeclaredField("attributes");
-                attributesField.setAccessible(true);
+                Field attributesField = getAccessibleField(AttributeSource.class, "attributes");
                 final Object attributesObj = attributesField.get(tokenizer);
                 attributesField.set(this, attributesObj);
 
-                Field attributeImplsField = AttributeSource.class
-                        .getDeclaredField("attributeImpls");
-                attributeImplsField.setAccessible(true);
-                final Object attributeImplsObj = attributeImplsField
-                        .get(tokenizer);
+                Field attributeImplsField = getAccessibleField(AttributeSource.class, "attributeImpls");
+                final Object attributeImplsObj = attributeImplsField.get(tokenizer);
                 attributeImplsField.set(this, attributeImplsObj);
 
-                Field currentStateField = AttributeSource.class
-                        .getDeclaredField("currentState");
-                currentStateField.setAccessible(true);
+                Field currentStateField = getAccessibleField(AttributeSource.class, "currentState");
                 final Object currentStateObj = currentStateField.get(tokenizer);
                 currentStateField.set(this, currentStateObj);
             } catch (final Exception e) {
@@ -281,4 +263,18 @@ public class ReloadableKuromojiTokenizerFactory extends
 
     }
 
+    private static Field getAccessibleField(final Class<?> clazz, final String name) {
+        return AccessController.doPrivileged(new PrivilegedAction<Field>() {
+            @Override
+            public Field run() {
+                try {
+                    Field field = clazz.getDeclaredField(name);
+                    field.setAccessible(true);
+                    return field;
+                } catch (final Exception e) {
+                    throw new IllegalArgumentException("Failed to load fields.", e);
+                }
+            }
+        });
+    }
 }
