@@ -57,3 +57,29 @@ See [mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd "meca
 
 * http://d.hatena.ne.jp/Kazuhira/20150316/1426520209
 * http://mocobeta-backup.tumblr.com/post/114318023832
+
+## Use Lucene Kuromoji for Neologd
+
+If you want to use Lucene Kuromoji for Neologd in your application other than elasticsearch, you can use lucene-analyzers-kuromoji-ipadic-neologd jar file, not this plugin.
+To use the jar file, put the following settings into your pom.xml.
+
+    ...
+    <repositories>
+        <repository>
+            <id>codelibs.org</id>
+            <name>CodeLibs Repository</name>
+            <url>http://maven.codelibs.org/</url>
+        </repository>
+    </repositories>
+    ...
+    <dependencies>
+        <dependency>
+            <groupId>org.codelibs</groupId>
+            <artifactId>lucene-analyzers-kuromoji-ipadic-neologd</artifactId>
+            <version>5.4.1-20160218</version>
+            <!-- http://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/ --->
+        </dependency>
+    ...
+
+
+
