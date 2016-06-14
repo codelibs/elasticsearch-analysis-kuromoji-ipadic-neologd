@@ -26,7 +26,7 @@
 		<version>9</version>
 	</parent>
 	<properties>
-		<elasticsearch.version>2.3.2</elasticsearch.version>
+		<elasticsearch.version>2.3.3</elasticsearch.version>
 		<elasticsearch.plugin.classname>org.codelibs.elasticsearch.kuromoji.neologd.KuromojiNeologdPlugin</elasticsearch.plugin.classname>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
