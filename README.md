@@ -88,5 +88,5 @@ To use the jar file, put the following settings into your pom.xml.
         </dependency>
     ...
 
-
+See [CodeLibs Maven Repository](http://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/).
 
