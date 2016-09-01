@@ -10,16 +10,13 @@ Elasticsearch Analysis Neologd Plugin provides Tokenizer/CharFilter/TokenFilter 
 | Version   | Tested on ES | neologd  |
 |:---------:|:------------:|:--------:|
 | master    | 2.3.X        |          |
-| 2.3.1     | 2.3.3        | 20160613 |
-| 2.3.0     | 2.3.1        | 20160411 |
+| 2.3.2     | 2.3.5        | 20160829 |
 | 2.2.0     | 2.2.2        | 20160324 |
 | 2.1.1     | 2.1.1        | 20151231 |
-| 2.1.0     | 2.1.0        | 20151214 |
 | 2.0.0     | 2.0.0        | 20151102 |
 | 1.7.1     | 1.7.1        | 20150918 |
 | 1.6.0     | 1.6.0        | 20150608 |
 | 1.5.1     | 1.5.2        | 20150501 |
-| 1.5.0     | 1.5.0        | 20150324 |
 | 1.4.0     | 1.4.4        | 20150319 |
 
 ### Issues/Questions
@@ -29,7 +26,7 @@ Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromo
 
 ## Installation
 
-    $ $ES_HOME/bin/plugin install org.codelibs/elasticsearch-analysis-kuromoji-neologd/2.3.1
+    $ $ES_HOME/bin/plugin install org.codelibs/elasticsearch-analysis-kuromoji-neologd/2.3.2
 
 ## References
 
