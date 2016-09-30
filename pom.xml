@@ -31,7 +31,7 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<lucene.version>5.5.0</lucene.version>
-		<kuromoji-ipadic-neologd.version>5.5.0-20160829</kuromoji-ipadic-neologd.version>
+		<kuromoji-ipadic-neologd.version>5.5.0-20160922</kuromoji-ipadic-neologd.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>org.codelibs</groupId>
 			<artifactId>elasticsearch-cluster-runner</artifactId>
-			<version>2.3.0.0</version>
+			<version>2.3.5.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
