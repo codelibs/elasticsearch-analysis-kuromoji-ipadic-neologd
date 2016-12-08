@@ -21,18 +21,15 @@ package org.codelibs.elasticsearch.kuromoji.neologd.index.analysis;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseBaseFormFilter;
-import org.elasticsearch.common.inject.Inject;
-import org.elasticsearch.common.inject.assistedinject.Assisted;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.index.Index;
+import org.elasticsearch.env.Environment;
+import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
-import org.elasticsearch.index.settings.IndexSettingsService;
 
 public class KuromojiBaseFormFilterFactory extends AbstractTokenFilterFactory {
 
-    @Inject
-    public KuromojiBaseFormFilterFactory(Index index, IndexSettingsService indexSettingsService, @Assisted String name, @Assisted Settings settings) {
-        super(index, indexSettingsService.getSettings(), name, settings);
+    public KuromojiBaseFormFilterFactory(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
+        super(indexSettings, name, settings);
     }
 
     @Override

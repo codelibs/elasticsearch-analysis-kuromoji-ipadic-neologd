@@ -25,22 +25,18 @@ import java.util.Set;
 
 import org.apache.lucene.analysis.TokenStream;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapanesePartOfSpeechStopFilter;
-import org.elasticsearch.common.inject.Inject;
-import org.elasticsearch.common.inject.assistedinject.Assisted;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
-import org.elasticsearch.index.Index;
+import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
 import org.elasticsearch.index.analysis.Analysis;
-import org.elasticsearch.index.settings.IndexSettingsService;
 
 public class KuromojiPartOfSpeechFilterFactory extends AbstractTokenFilterFactory {
 
     private final Set<String> stopTags = new HashSet<String>();
 
-    @Inject
-    public KuromojiPartOfSpeechFilterFactory(Index index, IndexSettingsService indexSettingsService, Environment env, @Assisted String name, @Assisted Settings settings) {
-        super(index, indexSettingsService.getSettings(), name, settings);
+    public KuromojiPartOfSpeechFilterFactory(IndexSettings indexSettings, Environment env, String name, Settings settings) {
+        super(indexSettings, name, settings);
         List<String> wordList = Analysis.getWordList(env, settings, "stoptags");
         if (wordList != null) {
             stopTags.addAll(wordList);

@@ -33,14 +33,11 @@ import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseTokenizer.Type;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.dict.Dictionary;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.dict.TokenInfoFST;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.dict.UserDictionary;
-import org.elasticsearch.common.inject.Inject;
-import org.elasticsearch.common.inject.assistedinject.Assisted;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.env.Environment;
-import org.elasticsearch.index.Index;
+import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenizerFactory;
-import org.elasticsearch.index.settings.IndexSettingsService;
 
 public class ReloadableKuromojiTokenizerFactory extends
         AbstractTokenizerFactory {
@@ -89,11 +86,8 @@ public class ReloadableKuromojiTokenizerFactory extends
 
     private boolean discartPunctuation;
 
-    @Inject
-    public ReloadableKuromojiTokenizerFactory(final Index index,
-            final IndexSettingsService indexSettingsService, final Environment env,
-            @Assisted final String name, @Assisted final Settings settings) {
-        super(index, indexSettingsService.getSettings(), name, settings);
+    public ReloadableKuromojiTokenizerFactory(IndexSettings indexSettings, Environment env, String name, Settings settings) {
+        super(indexSettings, name, settings);
         this.env = env;
         this.settings = settings;
         mode = KuromojiTokenizerFactory.getMode(settings);
