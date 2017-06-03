@@ -26,12 +26,12 @@
 		<version>9</version>
 	</parent>
 	<properties>
-		<elasticsearch.version>5.4.0</elasticsearch.version>
+		<elasticsearch.version>5.4.1</elasticsearch.version>
 		<elasticsearch.plugin.classname>org.codelibs.elasticsearch.kuromoji.neologd.KuromojiNeologdPlugin</elasticsearch.plugin.classname>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<lucene.version>6.5.0</lucene.version>
-		<kuromoji-ipadic-neologd.version>20170501</kuromoji-ipadic-neologd.version>
+		<lucene.version>6.5.1</lucene.version>
+		<kuromoji-ipadic-neologd.version>20170529</kuromoji-ipadic-neologd.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>org.codelibs</groupId>
 			<artifactId>elasticsearch-cluster-runner</artifactId>
-			<version>5.4.0.0</version>
+			<version>5.4.1.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
