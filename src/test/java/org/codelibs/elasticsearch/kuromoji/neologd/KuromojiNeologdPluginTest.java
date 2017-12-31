@@ -22,6 +22,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.settings.Settings.Builder;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.node.Node;
 import org.elasticsearch.rest.RestStatus;
@@ -50,7 +51,7 @@ public class KuromojiNeologdPluginTest {
             public void build(final int number, final Builder settingsBuilder) {
                 settingsBuilder.put("http.cors.enabled", true);
                 settingsBuilder.put("http.cors.allow-origin", "*");
-                settingsBuilder.putArray("discovery.zen.ping.unicast.hosts", "localhost:9301-9310");
+                settingsBuilder.putList("discovery.zen.ping.unicast.hosts", "localhost:9301-9310");
             }
         }).build(newConfigs().clusterName(clusterName).numOfNode(numOfNode)
                 .pluginTypes("org.codelibs.elasticsearch.kuromoji.neologd.KuromojiNeologdPlugin"));
@@ -99,7 +100,7 @@ public class KuromojiNeologdPluginTest {
                 + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_user_dict\",\"filter\":[\"kuromoji_neologd_stemmer\"]}"
                 + "}"//
                 + "}}}";
-        runner.createIndex(index, Settings.builder().loadFromSource(indexSettings).build());
+        runner.createIndex(index, Settings.builder().loadFromSource(indexSettings, XContentType.JSON).build());
 
         // create a mapping
         final XContentBuilder mappingBuilder = XContentFactory.jsonBuilder()//
@@ -173,7 +174,7 @@ public class KuromojiNeologdPluginTest {
                 + "\"ja_reload_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_user_dict_reload\",\"filter\":[\"kuromoji_neologd_stemmer\"]}"
                 + "}"//
                 + "}}}";
-        runner.createIndex(index, Settings.builder().loadFromSource(indexSettings).build());
+        runner.createIndex(index, Settings.builder().loadFromSource(indexSettings, XContentType.JSON).build());
 
         // create a mapping
         final XContentBuilder mappingBuilder = XContentFactory.jsonBuilder()//
