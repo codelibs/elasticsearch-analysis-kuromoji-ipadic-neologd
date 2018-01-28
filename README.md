@@ -16,7 +16,7 @@ Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromo
 
 ## Installation
 
-### For 5.x
+### For 5.x - 6.x
 
     $ $ES_HOME/bin/elasticsearch-plugin install org.codelibs:elasticsearch-analysis-kuromoji-neologd:5.6.1
 
