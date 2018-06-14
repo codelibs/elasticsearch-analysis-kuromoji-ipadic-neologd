@@ -13,9 +13,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
+import org.codelibs.curl.CurlResponse;
 import org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner;
-import org.codelibs.elasticsearch.runner.net.Curl;
-import org.codelibs.elasticsearch.runner.net.CurlResponse;
+import org.codelibs.elasticsearch.runner.net.EcrCurl;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.settings.Settings;
@@ -131,19 +131,19 @@ public class KuromojiNeologdPluginTest {
         assertDocCount(1, index, type, "msg", "東京スカイツリー");
 
         String text = "東京スカイツリー";
-        try (CurlResponse response = Curl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
+        try (CurlResponse response = EcrCurl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
                 .body("{\"analyzer\":\"ja_analyzer\",\"text\":\"" + text + "\"}").execute()) {
             @SuppressWarnings("unchecked")
-            List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
+            List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContent(EcrCurl.jsonParser).get("tokens");
             assertEquals("東京", tokens.get(0).get("token").toString());
             assertEquals("スカイツリ", tokens.get(1).get("token").toString());
         }
 
         text = "きゃりーぱみゅぱみゅ";
-        try (CurlResponse response = Curl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
+        try (CurlResponse response = EcrCurl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
                 .body("{\"analyzer\":\"ja_analyzer\",\"text\":\"" + text + "\"}").execute()) {
             @SuppressWarnings("unchecked")
-            List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
+            List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContent(EcrCurl.jsonParser).get("tokens");
             assertEquals("きゃりーぱみゅぱみゅ", tokens.get(0).get("token").toString());
         }
 
@@ -214,19 +214,19 @@ public class KuromojiNeologdPluginTest {
             assertDocCount(1, index, type, "msg2", "東京スカイツリー");
 
             String text = "東京スカイツリー";
-            try (CurlResponse response = Curl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
+            try (CurlResponse response = EcrCurl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
                     .body("{\"analyzer\":\"ja_reload_analyzer\",\"text\":\"" + text + "\"}").execute()) {
                 @SuppressWarnings("unchecked")
-                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
+                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContent(EcrCurl.jsonParser).get("tokens");
                 assertEquals("東京", tokens.get(0).get("token").toString());
                 assertEquals("スカイツリ", tokens.get(1).get("token").toString());
             }
 
             text = "Java太郎";
-            try (CurlResponse response = Curl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
+            try (CurlResponse response = EcrCurl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
                     .body("{\"analyzer\":\"ja_reload_analyzer\",\"text\":\"" + text + "\"}").execute()) {
                 @SuppressWarnings("unchecked")
-                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
+                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContent(EcrCurl.jsonParser).get("tokens");
                 assertEquals("Java", tokens.get(0).get("token").toString());
                 assertEquals("太郎", tokens.get(1).get("token").toString());
             }
@@ -249,20 +249,20 @@ public class KuromojiNeologdPluginTest {
             assertDocCount(2, index, type, "msg2", "東京スカイツリー");
 
             String text = "東京スカイツリー";
-            try (CurlResponse response = Curl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
+            try (CurlResponse response = EcrCurl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
                     .body("{\"analyzer\":\"ja_reload_analyzer\",\"text\":\"" + text + "\"}").execute()) {
                 @SuppressWarnings("unchecked")
-                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
+                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContent(EcrCurl.jsonParser).get("tokens");
                 assertEquals("東京", tokens.get(0).get("token").toString());
                 assertEquals("スカイ", tokens.get(1).get("token").toString());
                 assertEquals("ツリー", tokens.get(2).get("token").toString());
             }
 
             text = "Java太郎";
-            try (CurlResponse response = Curl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
+            try (CurlResponse response = EcrCurl.post(node, "/" + index + "/_analyze").header("Content-Type", "application/json")
                     .body("{\"analyzer\":\"ja_reload_analyzer\",\"text\":\"" + text + "\"}").execute()) {
                 @SuppressWarnings("unchecked")
-                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContentAsMap().get("tokens");
+                List<Map<String, Object>> tokens = (List<Map<String, Object>>) response.getContent(EcrCurl.jsonParser).get("tokens");
                 assertEquals("Java太郎", tokens.get(0).get("token").toString());
             }
         }
