@@ -111,8 +111,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.codelibs</groupId>
-			<artifactId>analyzers-ja</artifactId>
-			<version>7.3.1.0</version>
+			<artifactId>analyzers</artifactId>
+			<version>7.3.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codelibs</groupId>
