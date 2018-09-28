@@ -16,28 +16,23 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 package org.codelibs.elasticsearch.kuromoji.neologd.index.analysis;
 
 import org.apache.lucene.analysis.TokenStream;
-import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseReadingFormFilter;
+import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseNumberFilter;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
 
-public class KuromojiReadingFormFilterFactory extends AbstractTokenFilterFactory {
+public class KuromojiNumberFilterFactory extends AbstractTokenFilterFactory {
 
-    private final boolean useRomaji;
-
-    public KuromojiReadingFormFilterFactory(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
+    public KuromojiNumberFilterFactory(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
         super(indexSettings, name, settings);
-        useRomaji =
-            settings.getAsBooleanLenientForPreEs6Indices(indexSettings.getIndexVersionCreated(), "use_romaji", false, deprecationLogger);
     }
 
     @Override
     public TokenStream create(TokenStream tokenStream) {
-        return new JapaneseReadingFormFilter(tokenStream, useRomaji);
+        return new JapaneseNumberFilter(tokenStream);
     }
 }

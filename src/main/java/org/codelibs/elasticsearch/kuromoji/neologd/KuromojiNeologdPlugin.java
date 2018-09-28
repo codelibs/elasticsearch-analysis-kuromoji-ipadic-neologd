@@ -15,6 +15,7 @@ import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiReadin
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiTokenizerFactory;
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.PosConcatenationFilterFactory;
 import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.ReloadableKuromojiTokenizerFactory;
+import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiNumberFilterFactory;
 import org.elasticsearch.index.analysis.AnalyzerProvider;
 import org.elasticsearch.index.analysis.CharFilterFactory;
 import org.elasticsearch.index.analysis.TokenFilterFactory;
@@ -37,6 +38,7 @@ public class KuromojiNeologdPlugin extends Plugin implements AnalysisPlugin {
         extra.put("kuromoji_neologd_part_of_speech", KuromojiPartOfSpeechFilterFactory::new);
         extra.put("kuromoji_neologd_readingform", KuromojiReadingFormFilterFactory::new);
         extra.put("kuromoji_neologd_stemmer", KuromojiKatakanaStemmerFactory::new);
+        extra.put("kuromoji_neologd_number", KuromojiNumberFilterFactory::new);
         extra.put("kuromoji_neologd_pos_concat", PosConcatenationFilterFactory::new);
         return extra;
     }

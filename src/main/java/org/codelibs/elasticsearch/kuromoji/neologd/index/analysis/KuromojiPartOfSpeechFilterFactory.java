@@ -19,17 +19,18 @@
 
 package org.codelibs.elasticsearch.kuromoji.neologd.index.analysis;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.lucene.analysis.TokenStream;
+import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseAnalyzer;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapanesePartOfSpeechStopFilter;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
 import org.elasticsearch.index.analysis.Analysis;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class KuromojiPartOfSpeechFilterFactory extends AbstractTokenFilterFactory {
 
@@ -40,6 +41,8 @@ public class KuromojiPartOfSpeechFilterFactory extends AbstractTokenFilterFactor
         List<String> wordList = Analysis.getWordList(env, settings, "stoptags");
         if (wordList != null) {
             stopTags.addAll(wordList);
+        } else {
+            stopTags.addAll(JapaneseAnalyzer.getDefaultStopTags());
         }
     }
 
