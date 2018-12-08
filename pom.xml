@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.codelibs</groupId>
 	<artifactId>elasticsearch-analysis-kuromoji-neologd</artifactId>
-	<version>6.4.1-SNAPSHOT</version>
+	<version>6.5.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>This plugin provides an analysis library for Kuromoji with Neologd.</description>
 	<inceptionYear>2011</inceptionYear>
@@ -26,11 +26,11 @@
 		<version>9</version>
 	</parent>
 	<properties>
-		<elasticsearch.version>6.4.3</elasticsearch.version>
+		<elasticsearch.version>6.5.2</elasticsearch.version>
 		<elasticsearch.plugin.classname>org.codelibs.elasticsearch.kuromoji.neologd.KuromojiNeologdPlugin</elasticsearch.plugin.classname>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<lucene.version>7.4.0</lucene.version>
+		<lucene.version>7.5.0</lucene.version>
 		<kuromoji-ipadic-neologd.version>20181112</kuromoji-ipadic-neologd.version>
 	</properties>
 	<repositories>
@@ -112,7 +112,7 @@
 		<dependency>
 			<groupId>org.codelibs</groupId>
 			<artifactId>analyzers</artifactId>
-			<version>7.4.0.0</version>
+			<version>${lucene.version}.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codelibs</groupId>
