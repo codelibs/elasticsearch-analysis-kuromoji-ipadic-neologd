@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.kuromoji.neologd.analysis;
+package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.analysis;
 
 import static org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner.newConfigs;
 import static org.junit.Assert.assertEquals;
@@ -78,11 +78,11 @@ public class PosConcatenationFilterFactoryTest {
 
         final String indexSettings = "{\"index\":{\"analysis\":{"
                 + "\"filter\":{"
-                + "\"tag_concat_filter\":{\"type\":\"kuromoji_neologd_pos_concat\",\"tags_path\":\"tags.txt\"}"
+                + "\"tag_concat_filter\":{\"type\":\"kuromoji_ipadic_neologd_pos_concat\",\"tags_path\":\"tags.txt\"}"
                 + "},"//
                 + "\"analyzer\":{"
-                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"reloadable_kuromoji_neologd_tokenizer\"},"
-                + "\"ja_concat_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"reloadable_kuromoji_neologd_tokenizer\",\"filter\":[\"tag_concat_filter\"]}"
+                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_ipadic_neologd_tokenizer\"},"
+                + "\"ja_concat_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_ipadic_neologd_tokenizer\",\"filter\":[\"tag_concat_filter\"]}"
                 + "}"//
                 + "}}}";
         runner.createIndex(index, Settings.builder().loadFromSource(indexSettings, XContentType.JSON).build());
@@ -100,6 +100,7 @@ public class PosConcatenationFilterFactoryTest {
             }
         }
     }
+
     @Test
     public void test_basic2() throws Exception {
 
@@ -110,11 +111,11 @@ public class PosConcatenationFilterFactoryTest {
 
         final String indexSettings = "{\"index\":{\"analysis\":{"
                 + "\"filter\":{"
-                + "\"tag_concat_filter\":{\"type\":\"kuromoji_neologd_pos_concat\",\"tags\":[\"名詞-形容動詞語幹\",\"名詞-サ変接続\"]}"
+                + "\"tag_concat_filter\":{\"type\":\"kuromoji_ipadic_neologd_pos_concat\",\"tags\":[\"名詞-形容動詞語幹\",\"名詞-サ変接続\"]}"
                 + "},"//
                 + "\"analyzer\":{"
-                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"reloadable_kuromoji_neologd_tokenizer\"},"
-                + "\"ja_concat_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"reloadable_kuromoji_neologd_tokenizer\",\"filter\":[\"tag_concat_filter\"]}"
+                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_ipadic_neologd_tokenizer\"},"
+                + "\"ja_concat_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_ipadic_neologd_tokenizer\",\"filter\":[\"tag_concat_filter\"]}"
                 + "}"//
                 + "}}}";
         runner.createIndex(index, Settings.builder().loadFromSource(indexSettings, XContentType.JSON).build());

@@ -1,4 +1,4 @@
-Elasticsearch Analysis Kuromoji Neologd
+Elasticsearch Analysis Kuromoji IPADic Neologd
 =======================
 
 ## Overview
@@ -11,18 +11,12 @@ Elasticsearch Analysis Neologd Plugin provides Tokenizer/CharFilter/TokenFilter 
 
 ### Issues/Questions
 
-Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromoji-neologd/issues "issue").
+Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromoji-ipadic-neologd/issues "issue").
 (Japanese forum is [here](https://github.com/codelibs/codelibs-ja-forum "here").)
 
 ## Installation
 
-### For 5.x - 6.x
-
-    $ $ES_HOME/bin/elasticsearch-plugin install org.codelibs:elasticsearch-analysis-kuromoji-neologd:5.6.1
-
-### For 2.x
-
-    $ $ES_HOME/bin/plugin install org.codelibs/elasticsearch-analysis-kuromoji-neologd/2.4.1
+    $ $ES_HOME/bin/elasticsearch-plugin install org.codelibs:elasticsearch-analysis-kuromoji-ipadic-neologd:6.6.0-20190218
 
 ## References
 
@@ -30,16 +24,15 @@ Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromo
 
 The plugin includes these analyzer and tokenizer, tokenfilter.
 
-| name                                     | type        |
-|:-----------------------------------------|:-----------:|
-| kuromoji\_neologd\_iteration\_mark       | charfilter  |
-| kuromoji\_neologd                        | analyzer    |
-| kuromoji\_neologd\_tokenizer             | tokenizer   |
-| kuromoji\_neologd\_baseform              | tokenfilter |
-| kuromoji\_neologd\_part\_of\_speech      | tokenfilter |
-| kuromoji\_neologd\_readingform           | tokenfilter |
-| kuromoji\_neologd\_stemmer               | tokenfilter |
-| reloadable\_kuromoji\_neologd\_tokenizer | tokenizer   |
+| name                                             | type        |
+|:-------------------------------------------------|:-----------:|
+| kuromoji\_ipadic\_neologd\_iteration\_mark       | charfilter  |
+| kuromoji\_ipadic\_neologd                        | analyzer    |
+| kuromoji\_ipadic\_neologd\_tokenizer             | tokenizer   |
+| kuromoji\_ipadic\_neologd\_baseform              | tokenfilter |
+| kuromoji\_ipadic\_neologd\_part\_of\_speech      | tokenfilter |
+| kuromoji\_ipadic\_neologd\_readingform           | tokenfilter |
+| kuromoji\_ipadic\_neologd\_stemmer               | tokenfilter |
 
 ### Usage
 
@@ -47,16 +40,11 @@ See [Elasticsearch Kuromoji](https://github.com/elastic/elasticsearch-analysis-k
 
 ### Update Kuromoji Jar File
 
-If you want to replace with the latest Lucene Neologd jar file, download it from http://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/ and then replace old file in $ES_HOME/plugins/analysis-kuromoji-neologd.
+If you want to replace with the latest Lucene Neologd jar file, download it from https://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/ and then replace old file in $ES_HOME/plugins/analysis-kuromoji-ipadic-neologd.
 
 ### What is NEologd
 
 See [mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd "mecab-ipadic-NEologd").
-
-### References to build Lucene Kuromoji with NEologd
-
-* http://d.hatena.ne.jp/Kazuhira/20150316/1426520209
-* http://mocobeta-backup.tumblr.com/post/114318023832
 
 ## Use Lucene Kuromoji for Neologd
 
@@ -68,7 +56,7 @@ To use the jar file, put the following settings into your pom.xml.
         <repository>
             <id>codelibs.org</id>
             <name>CodeLibs Repository</name>
-            <url>http://maven.codelibs.org/</url>
+            <url>https://maven.codelibs.org/</url>
         </repository>
     </repositories>
     ...
@@ -76,10 +64,10 @@ To use the jar file, put the following settings into your pom.xml.
         <dependency>
             <groupId>org.codelibs</groupId>
             <artifactId>lucene-analyzers-kuromoji-ipadic-neologd</artifactId>
-            <version>5.4.1-20160218</version>
-            <!-- http://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/ --->
+            <version>6.6.0-20190218</version>
+            <!-- https://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/ --->
         </dependency>
     ...
 
-See [CodeLibs Maven Repository](http://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/).
+See [CodeLibs Maven Repository](https://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/).
 
