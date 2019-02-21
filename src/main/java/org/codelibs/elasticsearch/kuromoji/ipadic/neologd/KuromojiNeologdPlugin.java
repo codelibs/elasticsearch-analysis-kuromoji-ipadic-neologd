@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.kuromoji.neologd;
+package org.codelibs.elasticsearch.kuromoji.ipadic.neologd;
 
 import static java.util.Collections.singletonMap;
 
@@ -6,16 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiAnalyzerProvider;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiBaseFormFilterFactory;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiIterationMarkCharFilterFactory;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiKatakanaStemmerFactory;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiPartOfSpeechFilterFactory;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiReadingFormFilterFactory;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiTokenizerFactory;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.PosConcatenationFilterFactory;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.ReloadableKuromojiTokenizerFactory;
-import org.codelibs.elasticsearch.kuromoji.neologd.index.analysis.KuromojiNumberFilterFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.KuromojiAnalyzerProvider;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.KuromojiBaseFormFilterFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.KuromojiIterationMarkCharFilterFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.KuromojiKatakanaStemmerFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.KuromojiNumberFilterFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.KuromojiPartOfSpeechFilterFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.KuromojiReadingFormFilterFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.KuromojiTokenizerFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.PosConcatenationFilterFactory;
+import org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis.ReloadableKuromojiTokenizerFactory;
 import org.elasticsearch.index.analysis.AnalyzerProvider;
 import org.elasticsearch.index.analysis.CharFilterFactory;
 import org.elasticsearch.index.analysis.TokenFilterFactory;

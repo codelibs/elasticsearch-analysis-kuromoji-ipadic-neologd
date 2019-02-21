@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.codelibs.elasticsearch.kuromoji.neologd.index.analysis;
+package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis;
 
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseIterationMarkCharFilter;
 import org.elasticsearch.common.settings.Settings;

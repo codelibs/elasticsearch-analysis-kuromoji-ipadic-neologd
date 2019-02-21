@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.kuromoji.neologd.index.analysis;
+package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis;
 
 import java.util.HashSet;
 import java.util.List;

@@ -45,7 +45,7 @@ public class PosConcatenationFilterFactoryTest {
                 settingsBuilder.put("http.cors.allow-origin", "*");
                 settingsBuilder.putList("discovery.zen.ping.unicast.hosts", "localhost:9301-9310");
             }
-        }).build(newConfigs().clusterName(clusterName).numOfNode(numOfNode).pluginTypes("org.codelibs.elasticsearch.kuromoji.neologd.KuromojiNeologdPlugin"));
+        }).build(newConfigs().clusterName(clusterName).numOfNode(numOfNode).pluginTypes("org.codelibs.elasticsearch.kuromoji.ipadic.neologd.KuromojiNeologdPlugin"));
 
         numberSuffixFiles = null;
     }

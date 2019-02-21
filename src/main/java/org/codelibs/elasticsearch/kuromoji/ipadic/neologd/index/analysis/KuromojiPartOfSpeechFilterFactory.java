@@ -16,23 +16,39 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.codelibs.elasticsearch.kuromoji.neologd.index.analysis;
+
+package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis;
 
 import org.apache.lucene.analysis.TokenStream;
-import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseNumberFilter;
+import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseAnalyzer;
+import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapanesePartOfSpeechStopFilter;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
+import org.elasticsearch.index.analysis.Analysis;
 
-public class KuromojiNumberFilterFactory extends AbstractTokenFilterFactory {
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-    public KuromojiNumberFilterFactory(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
+public class KuromojiPartOfSpeechFilterFactory extends AbstractTokenFilterFactory {
+
+    private final Set<String> stopTags = new HashSet<String>();
+
+    public KuromojiPartOfSpeechFilterFactory(IndexSettings indexSettings, Environment env, String name, Settings settings) {
         super(indexSettings, name, settings);
+        List<String> wordList = Analysis.getWordList(env, settings, "stoptags");
+        if (wordList != null) {
+            stopTags.addAll(wordList);
+        } else {
+            stopTags.addAll(JapaneseAnalyzer.getDefaultStopTags());
+        }
     }
 
     @Override
     public TokenStream create(TokenStream tokenStream) {
-        return new JapaneseNumberFilter(tokenStream);
+        return new JapanesePartOfSpeechStopFilter(tokenStream, stopTags);
     }
+
 }
