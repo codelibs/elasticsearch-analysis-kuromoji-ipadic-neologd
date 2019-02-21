@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<name>elasticsearch-analysis-kuromoji-neologd</name>
+	<name>elasticsearch-analysis-kuromoji-ipadic-neologd</name>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.codelibs</groupId>
 	<artifactId>elasticsearch-analysis-kuromoji-ipadic-neologd</artifactId>
-	<version>6.6.0-SNAPSHOT</version>
+	<version>7.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<description>This plugin provides an analysis library for Kuromoji with Neologd.</description>
+	<description>This plugin provides an analysis library for Kuromoji with UniDic and Neologd.</description>
 	<inceptionYear>2011</inceptionYear>
 	<licenses>
 		<license>
@@ -16,9 +16,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:git:git@github.com:codelibs/elasticsearch-analysis-kuromoji-neologd.git</connection>
-		<developerConnection>scm:git:git@github.com:codelibs/elasticsearch-analysis-kuromoji-neologd.git</developerConnection>
-		<url>git@github.com:codelibs/elasticsearch-analysis-kuromoji-neologd.git</url>
+		<connection>scm:git:git@github.com:codelibs/elasticsearch-analysis-kuromoji-ipadic-neologd.git</connection>
+		<developerConnection>scm:git:git@github.com:codelibs/elasticsearch-analysis-kuromoji-ipadic-neologd.git</developerConnection>
+		<url>git@github.com:codelibs/elasticsearch-analysis-kuromoji-ipadic-neologd.git</url>
 	</scm>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -26,11 +26,11 @@
 		<version>9</version>
 	</parent>
 	<properties>
-		<elasticsearch.version>6.6.0</elasticsearch.version>
+		<elasticsearch.version>7.0.0-beta1</elasticsearch.version>
 		<elasticsearch.plugin.classname>org.codelibs.elasticsearch.kuromoji.ipadic.neologd.KuromojiNeologdPlugin</elasticsearch.plugin.classname>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<lucene.version>7.6.0</lucene.version>
+		<lucene.version>8.0.0-snapshot-83f9835</lucene.version>
 		<kuromoji-ipadic-neologd.version>20190218</kuromoji-ipadic-neologd.version>
 	</properties>
 	<repositories>
@@ -43,6 +43,17 @@
 			<name>oss.sonatype.org</name>
 			<id>oss.sonatype.org</id>
 			<url>http://oss.sonatype.org/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>elastic-lucene-snapshots</id>
+			<name>Elastic Lucene Snapshots</name>
+			<url>http://s3.amazonaws.com/download.elasticsearch.org/lucenesnapshots/83f9835</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 	<build>
@@ -112,7 +123,7 @@
 		<dependency>
 			<groupId>org.codelibs</groupId>
 			<artifactId>analyzers</artifactId>
-			<version>${lucene.version}.0</version>
+			<version>8.0.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codelibs</groupId>

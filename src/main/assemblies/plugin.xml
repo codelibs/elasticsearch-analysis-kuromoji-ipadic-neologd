@@ -10,10 +10,6 @@
 			<source>${basedir}/src/main/plugin-metadata/plugin-descriptor.properties</source>
 			<filtered>true</filtered>
 		</file>
-		<file>
-			<source>${basedir}/src/main/plugin-metadata/plugin-security.policy</source>
-			<filtered>true</filtered>
-		</file>
 	</files>
 	<dependencySets>
 		<dependencySet>

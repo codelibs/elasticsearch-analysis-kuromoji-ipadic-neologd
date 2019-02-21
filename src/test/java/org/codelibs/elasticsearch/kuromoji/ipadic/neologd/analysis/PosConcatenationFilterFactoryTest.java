@@ -1,4 +1,4 @@
-package org.codelibs.elasticsearch.kuromoji.neologd.analysis;
+package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.analysis;
 
 import static org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner.newConfigs;
 import static org.junit.Assert.assertEquals;
@@ -43,7 +43,8 @@ public class PosConcatenationFilterFactoryTest {
             public void build(final int number, final Builder settingsBuilder) {
                 settingsBuilder.put("http.cors.enabled", true);
                 settingsBuilder.put("http.cors.allow-origin", "*");
-                settingsBuilder.putList("discovery.zen.ping.unicast.hosts", "localhost:9301-9310");
+                settingsBuilder.putList("discovery.seed_hosts", "127.0.0.1:9301");
+                settingsBuilder.putList("cluster.initial_master_nodes", "127.0.0.1:9301");
             }
         }).build(newConfigs().clusterName(clusterName).numOfNode(numOfNode).pluginTypes("org.codelibs.elasticsearch.kuromoji.ipadic.neologd.KuromojiNeologdPlugin"));
 
@@ -78,11 +79,11 @@ public class PosConcatenationFilterFactoryTest {
 
         final String indexSettings = "{\"index\":{\"analysis\":{"
                 + "\"filter\":{"
-                + "\"tag_concat_filter\":{\"type\":\"kuromoji_neologd_pos_concat\",\"tags_path\":\"tags.txt\"}"
+                + "\"tag_concat_filter\":{\"type\":\"kuromoji_ipadic_neologd_pos_concat\",\"tags_path\":\"tags.txt\"}"
                 + "},"//
                 + "\"analyzer\":{"
-                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"reloadable_kuromoji_neologd_tokenizer\"},"
-                + "\"ja_concat_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"reloadable_kuromoji_neologd_tokenizer\",\"filter\":[\"tag_concat_filter\"]}"
+                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_ipadic_neologd_tokenizer\"},"
+                + "\"ja_concat_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_ipadic_neologd_tokenizer\",\"filter\":[\"tag_concat_filter\"]}"
                 + "}"//
                 + "}}}";
         runner.createIndex(index, Settings.builder().loadFromSource(indexSettings, XContentType.JSON).build());
@@ -100,6 +101,7 @@ public class PosConcatenationFilterFactoryTest {
             }
         }
     }
+
     @Test
     public void test_basic2() throws Exception {
 
@@ -110,11 +112,11 @@ public class PosConcatenationFilterFactoryTest {
 
         final String indexSettings = "{\"index\":{\"analysis\":{"
                 + "\"filter\":{"
-                + "\"tag_concat_filter\":{\"type\":\"kuromoji_neologd_pos_concat\",\"tags\":[\"名詞-形容動詞語幹\",\"名詞-サ変接続\"]}"
+                + "\"tag_concat_filter\":{\"type\":\"kuromoji_ipadic_neologd_pos_concat\",\"tags\":[\"名詞-形容動詞語幹\",\"名詞-サ変接続\"]}"
                 + "},"//
                 + "\"analyzer\":{"
-                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"reloadable_kuromoji_neologd_tokenizer\"},"
-                + "\"ja_concat_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"reloadable_kuromoji_neologd_tokenizer\",\"filter\":[\"tag_concat_filter\"]}"
+                + "\"ja_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_ipadic_neologd_tokenizer\"},"
+                + "\"ja_concat_analyzer\":{\"type\":\"custom\",\"tokenizer\":\"kuromoji_ipadic_neologd_tokenizer\",\"filter\":[\"tag_concat_filter\"]}"
                 + "}"//
                 + "}}}";
         runner.createIndex(index, Settings.builder().loadFromSource(indexSettings, XContentType.JSON).build());

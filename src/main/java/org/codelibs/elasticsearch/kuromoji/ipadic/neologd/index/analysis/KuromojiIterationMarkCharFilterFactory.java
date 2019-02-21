@@ -19,26 +19,24 @@
 
 package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis;
 
+import java.io.Reader;
+
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseIterationMarkCharFilter;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractCharFilterFactory;
-import org.elasticsearch.index.analysis.MultiTermAwareComponent;
+import org.elasticsearch.index.analysis.NormalizingCharFilterFactory;
 
-import java.io.Reader;
-
-public class KuromojiIterationMarkCharFilterFactory extends AbstractCharFilterFactory implements MultiTermAwareComponent {
+public class KuromojiIterationMarkCharFilterFactory extends AbstractCharFilterFactory implements NormalizingCharFilterFactory {
 
     private final boolean normalizeKanji;
     private final boolean normalizeKana;
 
     public KuromojiIterationMarkCharFilterFactory(IndexSettings indexSettings, Environment env, String name, Settings settings) {
         super(indexSettings, name);
-        normalizeKanji = settings.getAsBooleanLenientForPreEs6Indices(indexSettings.getIndexVersionCreated(), "normalize_kanji",
-            JapaneseIterationMarkCharFilter.NORMALIZE_KANJI_DEFAULT, deprecationLogger);
-        normalizeKana = settings.getAsBooleanLenientForPreEs6Indices(indexSettings.getIndexVersionCreated(), "normalize_kana",
-            JapaneseIterationMarkCharFilter.NORMALIZE_KANA_DEFAULT, deprecationLogger);
+        normalizeKanji = settings.getAsBoolean("normalize_kanji", JapaneseIterationMarkCharFilter.NORMALIZE_KANJI_DEFAULT);
+        normalizeKana = settings.getAsBoolean("normalize_kana", JapaneseIterationMarkCharFilter.NORMALIZE_KANA_DEFAULT);
     }
 
     @Override
@@ -46,8 +44,4 @@ public class KuromojiIterationMarkCharFilterFactory extends AbstractCharFilterFa
         return new JapaneseIterationMarkCharFilter(reader, normalizeKanji, normalizeKana);
     }
 
-    @Override
-    public Object getMultiTermComponent() {
-        return this;
-    }
 }

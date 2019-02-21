@@ -19,6 +19,9 @@
 
 package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis;
 
+import java.io.IOException;
+import java.io.Reader;
+
 import org.apache.lucene.analysis.Tokenizer;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseTokenizer;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseTokenizer.Mode;
@@ -29,9 +32,6 @@ import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenizerFactory;
 import org.elasticsearch.index.analysis.Analysis;
-
-import java.io.IOException;
-import java.io.Reader;
 
 public class KuromojiTokenizerFactory extends AbstractTokenizerFactory {
 
@@ -47,11 +47,10 @@ public class KuromojiTokenizerFactory extends AbstractTokenizerFactory {
     private boolean discartPunctuation;
 
     public KuromojiTokenizerFactory(IndexSettings indexSettings, Environment env, String name, Settings settings) {
-        super(indexSettings, name, settings);
+        super(indexSettings, settings);
         mode = getMode(settings);
         userDictionary = getUserDictionary(env, settings);
-        discartPunctuation = settings
-            .getAsBooleanLenientForPreEs6Indices(indexSettings.getIndexVersionCreated(), "discard_punctuation", true, deprecationLogger);
+        discartPunctuation = settings.getAsBoolean("discard_punctuation", true);
         nBestCost = settings.getAsInt(NBEST_COST, -1);
         nBestExamples = settings.get(NBEST_EXAMPLES);
     }

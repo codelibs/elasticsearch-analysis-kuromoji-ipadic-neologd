@@ -19,6 +19,10 @@
 
 package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.lucene.analysis.TokenStream;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseAnalyzer;
 import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapanesePartOfSpeechStopFilter;
@@ -28,13 +32,9 @@ import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
 import org.elasticsearch.index.analysis.Analysis;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 public class KuromojiPartOfSpeechFilterFactory extends AbstractTokenFilterFactory {
 
-    private final Set<String> stopTags = new HashSet<String>();
+    private final Set<String> stopTags = new HashSet<>();
 
     public KuromojiPartOfSpeechFilterFactory(IndexSettings indexSettings, Environment env, String name, Settings settings) {
         super(indexSettings, name, settings);
