@@ -26,12 +26,12 @@
 		<version>9</version>
 	</parent>
 	<properties>
-		<elasticsearch.version>7.0.0-beta1</elasticsearch.version>
+		<elasticsearch.version>7.0.0</elasticsearch.version>
 		<elasticsearch.plugin.classname>org.codelibs.elasticsearch.kuromoji.ipadic.neologd.KuromojiNeologdPlugin</elasticsearch.plugin.classname>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<lucene.version>8.0.0-snapshot-83f9835</lucene.version>
-		<kuromoji-ipadic-neologd.version>20190218</kuromoji-ipadic-neologd.version>
+		<lucene.version>8.0.0</lucene.version>
+		<kuromoji-ipadic-neologd.version>20190425</kuromoji-ipadic-neologd.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -43,17 +43,6 @@
 			<name>oss.sonatype.org</name>
 			<id>oss.sonatype.org</id>
 			<url>http://oss.sonatype.org/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>elastic-lucene-snapshots</id>
-			<name>Elastic Lucene Snapshots</name>
-			<url>http://s3.amazonaws.com/download.elasticsearch.org/lucenesnapshots/83f9835</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
 		</repository>
 	</repositories>
 	<build>
@@ -123,7 +112,7 @@
 		<dependency>
 			<groupId>org.codelibs</groupId>
 			<artifactId>analyzers</artifactId>
-			<version>8.0.0.0-SNAPSHOT</version>
+			<version>8.0.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codelibs</groupId>
