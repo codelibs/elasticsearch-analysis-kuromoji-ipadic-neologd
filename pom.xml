@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.codelibs</groupId>
 	<artifactId>elasticsearch-analysis-kuromoji-ipadic-neologd</artifactId>
-	<version>7.0.1-SNAPSHOT</version>
+	<version>7.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>This plugin provides an analysis library for Kuromoji with UniDic and Neologd.</description>
 	<inceptionYear>2011</inceptionYear>
