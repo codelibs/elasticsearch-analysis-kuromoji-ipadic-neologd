@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.codelibs</groupId>
 	<artifactId>elasticsearch-analysis-kuromoji-ipadic-neologd</artifactId>
-	<version>7.1.1-SNAPSHOT</version>
+	<version>7.2.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<description>This plugin provides an analysis library for Kuromoji with UniDic and Neologd.</description>
 	<inceptionYear>2011</inceptionYear>
@@ -31,7 +31,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<lucene.version>8.0.0</lucene.version>
-		<kuromoji-ipadic-neologd.version>20190425</kuromoji-ipadic-neologd.version>
+		<kuromoji-ipadic-neologd.version>20190617</kuromoji-ipadic-neologd.version>
 	</properties>
 	<repositories>
 		<repository>
