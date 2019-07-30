@@ -7,7 +7,8 @@ Elasticsearch Analysis Neologd Plugin provides Tokenizer/CharFilter/TokenFilter 
 
 ## Version
 
-[Versions in Maven Repository](http://central.maven.org/maven2/org/codelibs/elasticsearch-analysis-kuromoji-neologd/)
+[Versions in Maven Repository](http://central.maven.org/maven2/org/codelibs/elasticsearch-analysis-kuromoji-ipadic-neologd/)
+[Old(<= 6.5.1) Repository](http://central.maven.org/maven2/org/codelibs/elasticsearch-analysis-kuromoji-neologd/)
 
 ### Issues/Questions
 
@@ -16,7 +17,7 @@ Please file an [issue](https://github.com/codelibs/elasticsearch-analysis-kuromo
 
 ## Installation
 
-    $ $ES_HOME/bin/elasticsearch-plugin install org.codelibs:elasticsearch-analysis-kuromoji-ipadic-neologd:6.4.0
+    $ $ES_HOME/bin/elasticsearch-plugin install org.codelibs:elasticsearch-analysis-kuromoji-ipadic-neologd:7.1.0
 
 ## References
 
@@ -70,4 +71,3 @@ To use the jar file, put the following settings into your pom.xml.
     ...
 
 See [CodeLibs Maven Repository](https://maven.codelibs.org/org/codelibs/lucene-analyzers-kuromoji-ipadic-neologd/).
-
