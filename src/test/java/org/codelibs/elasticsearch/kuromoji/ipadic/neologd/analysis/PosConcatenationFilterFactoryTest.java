@@ -95,7 +95,7 @@ public class PosConcatenationFilterFactoryTest {
                     .body("{\"analyzer\":\"ja_concat_analyzer\",\"text\":\"" + text + "\"}").execute()) {
                 @SuppressWarnings("unchecked")
                 List<Map<String, Object>> tokens = (List<Map<String, Object>>) response
-                        .getContent(EcrCurl.jsonParser).get("tokens");
+                        .getContent(EcrCurl.jsonParser()).get("tokens");
                 assertEquals(1, tokens.size());
                 assertEquals("詳細設計", tokens.get(0).get("token").toString());
             }
@@ -128,7 +128,7 @@ public class PosConcatenationFilterFactoryTest {
                     .body("{\"analyzer\":\"ja_concat_analyzer\",\"text\":\"" + text + "\"}").execute()) {
                 @SuppressWarnings("unchecked")
                 List<Map<String, Object>> tokens = (List<Map<String, Object>>) response
-                        .getContent(EcrCurl.jsonParser).get("tokens");
+                        .getContent(EcrCurl.jsonParser()).get("tokens");
                 assertEquals(1, tokens.size());
                 assertEquals("詳細設計", tokens.get(0).get("token").toString());
             }
