@@ -20,7 +20,7 @@
 package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis;
 
 import org.apache.lucene.analysis.TokenStream;
-import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseReadingFormFilter;
+import org.apache.lucene.analysis.ja.JapaneseReadingFormFilter;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;

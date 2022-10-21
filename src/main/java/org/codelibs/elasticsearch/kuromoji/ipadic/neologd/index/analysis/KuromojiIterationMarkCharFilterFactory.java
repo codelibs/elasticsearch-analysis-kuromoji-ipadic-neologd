@@ -21,7 +21,7 @@ package org.codelibs.elasticsearch.kuromoji.ipadic.neologd.index.analysis;
 
 import java.io.Reader;
 
-import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseIterationMarkCharFilter;
+import org.apache.lucene.analysis.ja.JapaneseIterationMarkCharFilter;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
