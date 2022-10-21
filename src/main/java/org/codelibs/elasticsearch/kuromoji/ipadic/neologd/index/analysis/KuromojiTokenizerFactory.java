@@ -23,9 +23,9 @@ import java.io.IOException;
 import java.io.Reader;
 
 import org.apache.lucene.analysis.Tokenizer;
-import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseTokenizer;
-import org.codelibs.neologd.ipadic.lucene.analysis.ja.JapaneseTokenizer.Mode;
-import org.codelibs.neologd.ipadic.lucene.analysis.ja.dict.UserDictionary;
+import org.apache.lucene.analysis.ja.JapaneseTokenizer;
+import org.apache.lucene.analysis.ja.JapaneseTokenizer.Mode;
+import org.apache.lucene.analysis.ja.dict.UserDictionary;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
@@ -47,7 +47,7 @@ public class KuromojiTokenizerFactory extends AbstractTokenizerFactory {
     private boolean discartPunctuation;
 
     public KuromojiTokenizerFactory(IndexSettings indexSettings, Environment env, String name, Settings settings) {
-        super(indexSettings, settings);
+        super(indexSettings, settings, name);
         mode = getMode(settings);
         userDictionary = getUserDictionary(env, settings);
         discartPunctuation = settings.getAsBoolean("discard_punctuation", true);
